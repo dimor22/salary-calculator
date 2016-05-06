@@ -26,6 +26,8 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 	<link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.jpg">
 	<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.jpg">
 
+	<link rel="stylesheet" href="style.css"/>
+
 	<title>Salary Calculator</title>
 	<!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
