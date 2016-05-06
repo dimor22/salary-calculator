@@ -61,64 +61,6 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 		});
 	</script>
 
-
-	<style>
-		body {
-			text-align: center;
-		}
-		label {
-			text-align: center;
-			display: block;
-			font-size: 2em;
-		}
-		.container {
-
-			background-color: white;
-			margin-top: 70px;
-			padding: 0px 40px 50px;
-		}
-		div div {
-			margin-top: 10px;
-		}
-		button.btn.btn-default {
-			display: block;
-			margin: 0 auto;
-		}
-
-		input#amount {
-			border-radius: 0;
-			border-top: none;
-			border-right: none;
-			border-left: none;
-			box-shadow: none;
-			margin-top: 20px;
-		}
-		input#amount::-webkit-input-placeholder.error {
-			color: red;
-		}
-
-		input#amount:-ms-input-placeholder.error {
-			color: red;
-		}
-		button.btn.btn-default {
-			border-radius: 0;
-			background: #3B7182;
-			border: 0;
-			box-shadow: none;
-			text-shadow: none;
-			color: #fcf8e3;
-			padding: 10px 40px;
-		}
-		td.value {
-			font-size: 2em;
-			color: #3B7182;
-			font-family: 'Oswald', sans-serif;
-		}
-		.blue {
-			font-family: 'Oswald', sans-serif;
-		}
-
-	</style>
 </head>
 
 <body>
