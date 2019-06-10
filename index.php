@@ -26,8 +26,6 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 	<link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.jpg">
 	<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.jpg">
 
-	<link rel="stylesheet" href="style.css"/>
-
 	<title>Salary Calculator</title>
 
 
@@ -39,8 +37,7 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 
 	<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
-	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -108,62 +105,10 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
     <p>Created by <a href="https://www.linkedin.com/in/dlopezwd" target="_blank">David Lopez</a></p>
 </footer>
 
-<!-- Latest compiled and minified JavaScript -->
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
+<script src="js/app.js"></script>
 
 
 </body>
-
-<script>
-
-	$('#amount').focus();
-
-	// validation
-	$('form').submit(function (e) {
-		e.preventDefault();
-
-		var amount = $('#amount').val();
-		var submit = true;
-
-		if ( amount == 0){
-			$('#amount').val('');
-			$('#amount').attr('placeholder',  "Don't be silly. Try with a number greater than 0.");
-			submit = false;
-		}
-
-		if ( amount < 0){
-			$('#amount').val('');
-			$('#amount').attr('placeholder',  "Really? Negative pay?. Don't even take that job.");
-			submit = false;
-		}
-
-		if ( amount == ''){
-			$('#amount').val('');
-			$('#amount').attr('placeholder',  "Hello!... It's empty.");
-			submit = false;
-		}
-
-		if ( amount > 1000000){
-			$('#amount').val('');
-			$('#amount').attr('placeholder',  "Yeah right! keep dreaming.");
-			submit = false;
-		}
-
-		if ( isNaN(amount)){
-			$('#amount').val('');
-			$('#amount').attr('placeholder',  "No letters, Are you pushing my limits?");
-			submit = false;
-		}
-
-		if (submit) {
-			this.submit();
-		}
-
-		$('#amount').focus();
-
-	});
-</script>
-
 </html>
