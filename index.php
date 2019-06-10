@@ -1,8 +1,7 @@
 <?php
 
-require_once 'vendor/autoload.php';
 
-use App\CalcSalary;
+require './src/CalcSalary.php';
 
 if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 	$result = new CalcSalary($_REQUEST['amount'], $_REQUEST['status']);
@@ -49,7 +48,7 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 			<form>
 				<div class="form-group">
 					<label for="amount">SALARY CALCULATOR</label>
-					<input type="number" class="form-control" id="amount" name="amount" placeholder="Enter Hourly or Yearly">
+					<input pattern="[0-9]*" type="text" class="form-control" id="amount" name="amount" placeholder="Enter Hourly or Yearly">
 				</div>
                 <div class="form-group">
                     <div class="radio">

@@ -3,7 +3,6 @@ body {
     min-width: 350px;
 }
 label {
-    text-align: center;
     display: block;
 }
 .container {
