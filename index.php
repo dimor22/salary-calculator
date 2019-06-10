@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 use App\CalcSalary;
 
 if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
-	$result = new CalcSalary($_REQUEST['amount']);
+	$result = new CalcSalary($_REQUEST['amount'], $_REQUEST['status']);
 	$show_results = true;
 }
 
@@ -29,9 +29,7 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 	<link rel="stylesheet" href="style.css"/>
 
 	<title>Salary Calculator</title>
-	<!--[if IE]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -43,25 +41,6 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 
-	<!-- progressive app ( chrome ) -->
-	<link rel="manifest" href="manifest.json">
-	<script>
-		window.addEventListener('load', function() {
-			var outputElement = document.getElementById('output');
-			navigator.serviceWorker.register('service-worker.js', { scope: './' })
-				.then(function(r) {
-					console.log('registered service worker');
-				})
-				.catch(function(whut) {
-					console.error('uh oh... ');
-					console.error(whut);
-				});
-
-			window.addEventListener('beforeinstallprompt', function(e) {
-				outputElement.textContent = 'beforeinstallprompt Event fired';
-			});
-		});
-	</script>
 
 </head>
 
@@ -75,6 +54,20 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 					<label for="amount">SALARY CALCULATOR</label>
 					<input type="number" class="form-control" id="amount" name="amount" placeholder="Enter Hourly or Yearly">
 				</div>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="status" id="optionsRadios1" value="0">
+                            Single
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="status" id="optionsRadios2" value="1" checked>
+                            Married
+                        </label>
+                    </div>
+                </div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-default">Submit</button>
 				</div>
@@ -82,13 +75,25 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 		</div>
 		<?php if ($show_results) { ?>
 			<div class="col-lg-12">
-				<p><span class="blue">$<?php echo number_format($_REQUEST['amount'], 2);?></span><?php echo $_REQUEST['amount'] < 1000 ? ' an hour' : ' a year'; echo ' equals'?></p>
+                <div class="input">
+                    <p>Value: <span class="number">$<?php echo number_format($_REQUEST['amount'], 2);?></span><?php echo $_REQUEST['amount'] < 1000 ? ' an hour' : ' a year';?></p>
+                    <p>Taxes: <span class="number"><?php echo $result->output['tableHeader']['tax'] . '%' ?></span>  - <small>(Federal Tax, Social Security and Medicare)</small></p>
+                    <p>Estatus: <?php echo $_REQUEST['status'] > 0 ? 'Married' : 'Single';?></p>
+                </div>
 
-				<div class="table-responsive">
+
+                <div class="table-responsive">
 					<table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>Before Taxes</td>
+                            <td>After Taxes</td>
+                        </tr>
+                        </thead>
 						<?php
-						foreach($result->output as $k => $v){
-							echo '<tr><td>' . ucfirst($k) . '</td><td class="value">'. $v .'</td></tr>';
+						foreach($result->output['tableData'] as $v){
+							echo '<tr><td>' . ucfirst($v['name']) . '</td><td class="value">$' . number_format($v['amount'], 2) . '</td><td class="value-taxes number">$' . number_format($v['withTax'], 2) . '</td></tr>';
 						}
 						?>
 					</table>
@@ -97,6 +102,11 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 		<?php } ?>
 	</div>
 </div>
+
+<footer>
+    <p>This estimator is based on 2078 hours per year as suggested by OPM.GOV. Taxes are calculated for the state of Nevada.</p>
+    <p>Created by <a href="https://www.linkedin.com/in/dlopezwd" target="_blank">David Lopez</a></p>
+</footer>
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -108,7 +118,7 @@ if (! empty($_REQUEST['amount']) && $_REQUEST['amount'] > 0) {
 
 <script>
 
-	//$('#amount').focus();
+	$('#amount').focus();
 
 	// validation
 	$('form').submit(function (e) {

@@ -1,13 +1,13 @@
 body {
-    text-align: center;
+    font-size: 16px;
+    min-width: 350px;
 }
 label {
     text-align: center;
     display: block;
-    font-size: 2em;
 }
 .container {
-
+    max-width: 600px;
     background-color: white;
     margin-top: 70px;
     padding: 0px 40px 50px;
@@ -45,10 +45,29 @@ button.btn.btn-default {
     padding: 10px 40px;
 }
 td.value {
-    font-size: 2em;
+    font-size: 2rem;
     color: #3B7182;
     font-family: 'Oswald', sans-serif;
 }
-.blue {
+td.value-taxes{
+    color: #ff9800;
+    font-size: 2rem;
+}
+.number {
     font-family: 'Oswald', sans-serif;
+}
+.input {
+    background-color: #ff980059;
+    padding: 30px;
+}
+footer {
+    text-align: center;
+    color: #3b718259;
+    padding: 20px 20px 50px;
+    margin: 0 auto;
+    max-width: 380px;
+}
+.form-group label[for="amount"] {
+    text-align: center;
+    width: 100%;
 }
